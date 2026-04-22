@@ -84,6 +84,27 @@ export default function CheckoutPage() {
         return;
       }
       
+      // Fire invoice email — non-blocking, doesn't affect order flow
+      if (formData.email) {
+        supabase.functions.invoke('send-invoice', {
+          body: {
+            order: {
+              id: data.id,
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              address: fullAddress,
+              city: formData.city,
+              pincode: formData.pincode,
+              // Map quantity → qty to match edge function template
+              items: cartItems.map(item => ({ ...item, qty: item.quantity })),
+              total: finalTotal,
+              created_at: new Date().toISOString()
+            }
+          }
+        }).catch(err => console.error('Invoice email failed (non-critical):', err));
+      }
+
       await clearCart();
       navigate(`/order-success/${data.id}`);
     } catch (err) {

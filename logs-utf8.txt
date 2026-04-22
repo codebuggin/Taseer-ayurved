@@ -1,0 +1,458 @@
+﻿Uploading swarn-bhasma-500mg.jpeg...
+Inserting Swarn Bhasma 500mg into DB...
+node : DB error for 
+Swarn Bhasma 500mg: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+At line:1 char:1
++ node --env-file=.env 
+migrate.js > logs.txt 
+2>&1
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (DB error for    
+ Sw...able "product    
+s":String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+Uploading taseer-ayurveda-general-wellness.jpeg...
+Inserting Taseer Ayurveda General Wellness into DB...
+DB error for Taseer 
+Ayurveda General 
+Wellness: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading honey-moon-special.jpeg...
+Inserting Honey Moon Special into DB...
+DB error for Honey 
+Moon Special: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading liver-failure-care.jpeg...
+Inserting Liver Failure Care into DB...
+DB error for Liver 
+Failure Care: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading alopecia-oil.jpeg...
+Inserting Alopecia Oil into DB...
+DB error for Alopecia 
+Oil: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading hair-fall-oil.jpeg...
+Inserting Hair Fall Oil into DB...
+DB error for Hair Fall 
+Oil: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading ayurvedic-black-oil.jpeg...
+Inserting Ayurvedic Black Oil into DB...
+DB error for Ayurvedic 
+Black Oil: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading fatty-l-liver-care.jpeg...
+Inserting Fatty-L Liver Care into DB...
+DB error for Fatty-L 
+Liver Care: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading kodney-sukad-jana.jpeg...
+Inserting Kodney sukad jana into DB...
+DB error for Kodney 
+sukad jana: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading hernia-treatment.jpeg...
+Inserting Hernia Treatment into DB...
+DB error for Hernia 
+Treatment: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading prostate-level.jpeg...
+Inserting Prostate Level into DB...
+DB error for Prostate 
+Level: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading sabkuch-hazam.jpeg...
+Inserting Sabkuch Hazam into DB...
+DB error for Sabkuch 
+Hazam: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading kidney-failure-medicine.jpeg...
+Inserting Kidney Failure Medicine into DB...
+DB error for Kidney 
+Failure Medicine: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading all-pain-for-arthritis.jpeg...
+Inserting All Pain for Arthritis into DB...
+DB error for All Pain 
+for Arthritis: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading body-pain-relief.jpeg...
+Inserting Body Pain Relief into DB...
+DB error for Body Pain 
+Relief: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading best-for-cholesterol.jpeg...
+Inserting Best for Cholesterol into DB...
+DB error for Best for 
+Cholesterol: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading go-stone.jpeg...
+Inserting Go Stone into DB...
+DB error for Go Stone: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading pil-estreatment.jpeg...
+Inserting Pil-esTreatment into DB...
+DB error for 
+Pil-esTreatment: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading kidney-failure-medicine.jpeg...
+Inserting Kidney Failure Medicine into DB...
+DB error for Kidney 
+Failure Medicine: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading deep-sleep.jpeg...
+Inserting Deep Sleep into DB...
+DB error for Deep 
+Sleep: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading talbina.jpeg...
+Inserting Talbina into DB...
+DB error for Talbina: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading bp-control-majun.jpeg...
+Inserting BP Control Majun into DB...
+DB error for BP 
+Control Majun: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading gallbladder-stones-cleaner.jpeg...
+Inserting Gallbladder Stones Cleaner into DB...
+DB error for 
+Gallbladder Stones 
+Cleaner: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading majun-for-paralysis.jpeg...
+Inserting Majun For Paralysis into DB...
+DB error for Majun For 
+Paralysis: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading height-powder.jpeg...
+Inserting Height Powder into DB...
+DB error for Height 
+Powder: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading tila-e-rider.jpeg...
+Inserting Tila-E-Rider into DB...
+DB error for 
+Tila-E-Rider: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading million-liver-care-detox.jpeg...
+Inserting Million Liver Care & Detox into DB...
+DB error for Million 
+Liver Care & Detox: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading weight-gain-ass-ws-powder.jpeg...
+Inserting Weight Gain ASS-WS Powder into DB...
+DB error for Weight 
+Gain ASS-WS Powder: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading heart-cure-special.jpeg...
+Inserting Heart Cure Special into DB...
+DB error for Heart 
+Cure Special: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading belly-fat-burner-detox.jpeg...
+Inserting Belly Fat Burner Detox into DB...
+DB error for Belly Fat 
+Burner Detox: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading worms-cure.jpeg...
+Inserting Worms Cure into DB...
+DB error for Worms 
+Cure: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading sinus-cure.jpeg...
+Inserting Sinus Cure into DB...
+DB error for Sinus 
+Cure: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading uric-acid-care.jpeg...
+Inserting Uric Acid Care into DB...
+DB error for Uric Acid 
+Care: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading vericose-veins-cure.jpeg...
+Inserting Vericose Veins Cure into DB...
+DB error for Vericose 
+Veins Cure: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading stomach-cure.jpeg...
+Inserting Stomach Cure into DB...
+DB error for Stomach 
+Cure: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading insomnia-cure.jpeg...
+Inserting Insomnia Cure into DB...
+DB error for Insomnia 
+Cure: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading kidney-liver-cure.jpeg...
+Inserting Kidney-Liver Cure into DB...
+DB error for 
+Kidney-Liver Cure: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading lungs-cure.jpeg...
+Inserting Lungs Cure into DB...
+DB error for Lungs 
+Cure: new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading chinta-mukti.jpeg...
+Inserting Chinta Mukti into DB...
+DB error for Chinta 
+Mukti: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading piliya-ki-dekhbhal.jpeg...
+Inserting Piliya Ki Dekhbhal into DB...
+DB error for Piliya Ki 
+Dekhbhal: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading motiya-bina-operation.jpeg...
+Inserting Motiya Bina Operation into DB...
+DB error for Motiya 
+Bina Operation: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading depression-care.jpeg...
+Inserting Depression Care into DB...
+DB error for 
+Depression Care: new 
+row violates row-level 
+security policy for 
+table "products"
+Uploading uterine-fibroid-bachche-dani-ganth.jpeg...
+Inserting Uterine Fibroid / Bachche Dani Ganth into DB...
+DB error for Uterine 
+Fibroid / Bachche Dani 
+Ganth: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading daad-aur-khujli-lap.jpeg...
+Inserting Daad Aur Khujli Lap into DB...
+DB error for Daad Aur 
+Khujli Lap: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading khoobsurat-aur-gore-rang-ke-liye.jpeg...
+Inserting Khoobsurat Aur Gore Rang Ke Liye into DB...
+DB error for 
+Khoobsurat Aur Gore 
+Rang Ke Liye: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading kamar-dard-nivarak-capsule.jpeg...
+Inserting Kamar Dard Nivarak Capsule into DB...
+DB error for Kamar 
+Dard Nivarak Capsule: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading sharab-chudane-ki-aushadhi.jpeg...
+Inserting Sharab Chudane Ki Aushadhi into DB...
+DB error for Sharab 
+Chudane Ki Aushadhi: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading migraine-ka-ilaj.jpeg...
+Inserting Migraine Ka Ilaj into DB...
+DB error for Migraine 
+Ka Ilaj: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading leucorrhea-capsule.jpeg...
+Inserting Leucorrhea Capsule into DB...
+DB error for 
+Leucorrhea Capsule: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading sciatica-relief.jpeg...
+Inserting Sciatica Relief into DB...
+DB error for Sciatica 
+Relief: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading drishti-sudhar-hetu-powder.jpeg...
+Inserting Drishti Sudhar Hetu Powder into DB...
+DB error for Drishti 
+Sudhar Hetu Powder: 
+new row violates 
+row-level security 
+policy for table 
+"products"
+Uploading periods-free-capsules.jpeg...
+Inserting Periods Free Capsules into DB...
+DB error for Periods 
+Free Capsules: new row 
+violates row-level 
+security policy for 
+table "products"
+Uploading asthma-care.jpeg...
+Inserting Asthma Care into DB...
+DB error for Asthma 
+Care: new row violates 
+row-level security 
+policy for table 
+"products"
+
+--- VERIFICATION REPORT ---
+Total products parsed: 53
+Total images uploaded: 53
+Total products inserted: 0
+Errors encountered: 53
+DB error for Swarn Bhasma 500mg: new row violates row-level security policy for table "products"
+DB error for Taseer Ayurveda General Wellness: new row violates row-level security policy for table "products"
+DB error for Honey Moon Special: new row violates row-level security policy for table "products"
+DB error for Liver Failure Care: new row violates row-level security policy for table "products"
+DB error for Alopecia Oil: new row violates row-level security policy for table "products"
+DB error for Hair Fall Oil: new row violates row-level security policy for table "products"
+DB error for Ayurvedic Black Oil: new row violates row-level security policy for table "products"
+DB error for Fatty-L Liver Care: new row violates row-level security policy for table "products"
+DB error for Kodney sukad jana: new row violates row-level security policy for table "products"
+DB error for Hernia Treatment: new row violates row-level security policy for table "products"
+DB error for Prostate Level: new row violates row-level security policy for table "products"
+DB error for Sabkuch Hazam: new row violates row-level security policy for table "products"
+DB error for Kidney Failure Medicine: new row violates row-level security policy for table "products"
+DB error for All Pain for Arthritis: new row violates row-level security policy for table "products"
+DB error for Body Pain Relief: new row violates row-level security policy for table "products"
+DB error for Best for Cholesterol: new row violates row-level security policy for table "products"
+DB error for Go Stone: new row violates row-level security policy for table "products"
+DB error for Pil-esTreatment: new row violates row-level security policy for table "products"
+DB error for Kidney Failure Medicine: new row violates row-level security policy for table "products"
+DB error for Deep Sleep: new row violates row-level security policy for table "products"
+DB error for Talbina: new row violates row-level security policy for table "products"
+DB error for BP Control Majun: new row violates row-level security policy for table "products"
+DB error for Gallbladder Stones Cleaner: new row violates row-level security policy for table "products"
+DB error for Majun For Paralysis: new row violates row-level security policy for table "products"
+DB error for Height Powder: new row violates row-level security policy for table "products"
+DB error for Tila-E-Rider: new row violates row-level security policy for table "products"
+DB error for Million Liver Care & Detox: new row violates row-level security policy for table "products"
+DB error for Weight Gain ASS-WS Powder: new row violates row-level security policy for table "products"
+DB error for Heart Cure Special: new row violates row-level security policy for table "products"
+DB error for Belly Fat Burner Detox: new row violates row-level security policy for table "products"
+DB error for Worms Cure: new row violates row-level security policy for table "products"
+DB error for Sinus Cure: new row violates row-level security policy for table "products"
+DB error for Uric Acid Care: new row violates row-level security policy for table "products"
+DB error for Vericose Veins Cure: new row violates row-level security policy for table "products"
+DB error for Stomach Cure: new row violates row-level security policy for table "products"
+DB error for Insomnia Cure: new row violates row-level security policy for table "products"
+DB error for Kidney-Liver Cure: new row violates row-level security policy for table "products"
+DB error for Lungs Cure: new row violates row-level security policy for table "products"
+DB error for Chinta Mukti: new row violates row-level security policy for table "products"
+DB error for Piliya Ki Dekhbhal: new row violates row-level security policy for table "products"
+DB error for Motiya Bina Operation: new row violates row-level security policy for table "products"
+DB error for Depression Care: new row violates row-level security policy for table "products"
+DB error for Uterine Fibroid / Bachche Dani Ganth: new row violates row-level security policy for table "products"
+DB error for Daad Aur Khujli Lap: new row violates row-level security policy for table "products"
+DB error for Khoobsurat Aur Gore Rang Ke Liye: new row violates row-level security policy for table "products"
+DB error for Kamar Dard Nivarak Capsule: new row violates row-level security policy for table "products"
+DB error for Sharab Chudane Ki Aushadhi: new row violates row-level security policy for table "products"
+DB error for Migraine Ka Ilaj: new row violates row-level security policy for table "products"
+DB error for Leucorrhea Capsule: new row violates row-level security policy for table "products"
+DB error for Sciatica Relief: new row violates row-level security policy for table "products"
+DB error for Drishti Sudhar Hetu Powder: new row violates row-level security policy for table "products"
+DB error for Periods Free Capsules: new row violates row-level security policy for table "products"
+DB error for Asthma Care: new row violates row-level security policy for table "products"

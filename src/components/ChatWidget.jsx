@@ -156,6 +156,7 @@ export default function ChatWidget() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const messagesEndRef = useRef(null);
+  const productsRef = useRef([]); // ref so async voice session always gets current list
   const mediaRecorderRef = useRef(null);
   const peerConnectionRef = useRef(null);
   const dataChannelRef = useRef(null);
@@ -183,9 +184,14 @@ export default function ChatWidget() {
     if (!isOpen) return;
     supabase
       .from('products')
-      .select('name, category, price, benefit')
+      .select('name, category, price, benefit, description')
       .order('name')
-      .then(({ data }) => { if (data) setProducts(data); });
+      .then(({ data }) => {
+        if (data) {
+          setProducts(data);
+          productsRef.current = data; // keep ref in sync for async voice session
+        }
+      });
   }, [isOpen]);
 
   // Clean up voice session when chat closes
@@ -271,10 +277,21 @@ export default function ChatWidget() {
         setIsVoiceActive(true);
         setVoiceStatus('idle');
 
+        const productContext = productsRef.current.length > 0
+          ? productsRef.current.map(p =>
+              `• ${p.name} | Category: ${p.category} | Price: ₹${p.price} | ${p.benefit}`
+            ).join('\n')
+          : '(Check /shop for full product catalog)';
+
         dc.send(JSON.stringify({
           type: 'session.update',
           session: {
-            instructions: REALTIME_INSTRUCTIONS,
+            instructions: `${REALTIME_INSTRUCTIONS}
+
+CURRENT PRODUCTS (live from database):
+${productContext}
+
+Always use these exact product names and prices. If a product is not in this list, say it is not currently available. New products are added regularly so always refer to this list.`,
             voice: 'shimmer',
             input_audio_transcription: { model: 'whisper-1' },
             turn_detection: {

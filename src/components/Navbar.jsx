@@ -20,6 +20,8 @@ export default function Navbar() {
   const { openCart, cartCount } = useCart();
   const { user, signOut } = useAuth();
   const searchInputRef = useRef(null);
+  const headerRef = useRef(null);
+  const [headerH, setHeaderH] = useState(100);
 
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -42,9 +44,12 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // Focus search input when modal opens
+  // Measure header height + focus input when search opens
   useEffect(() => {
-    if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 50);
+    if (searchOpen) {
+      setHeaderH(headerRef.current?.offsetHeight ?? 100);
+      setTimeout(() => searchInputRef.current?.focus(), 50);
+    }
   }, [searchOpen]);
 
   // Debounced product search
@@ -75,72 +80,90 @@ export default function Navbar() {
   };
 
   return (
+    <>
+      {/* ── Compact Search Dropdown ── */}
+      {searchOpen && (
+        <>
+          {/* Backdrop — dims page, click to close */}
+          <div
+            className="fixed inset-0 z-[199] bg-black/25"
+            onClick={closeSearch}
+          />
+
+          {/* Search panel — slides below navbar */}
+          <div
+            className="fixed left-0 right-0 z-[200] flex justify-center px-4"
+            style={{ top: headerH + 6 }}
+          >
+            <div className="w-full max-w-[500px]">
+              {/* Input */}
+              <div className="flex items-center h-11 bg-white rounded-2xl shadow-xl border border-gray-200 px-3 gap-2">
+                <Search size={16} className="text-gray-400 shrink-0" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search products or conditions..."
+                  className="flex-1 h-full outline-none font-body text-[14px] text-gray-800 placeholder-gray-400 bg-transparent"
+                />
+                {searchLoading && (
+                  <Loader2 size={14} className="animate-spin text-gray-400 shrink-0" />
+                )}
+                <button onClick={closeSearch} className="p-0.5 hover:opacity-60 transition-opacity shrink-0">
+                  <X size={16} color="#666" />
+                </button>
+              </div>
+
+              {/* Results dropdown */}
+              {searchQuery.trim() && (
+                <div className="mt-1.5 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                  <div className="max-h-[350px] overflow-y-auto">
+                    {searchLoading && (
+                      <div className="flex justify-center py-6">
+                        <Loader2 size={20} className="animate-spin text-gray-300" />
+                      </div>
+                    )}
+                    {!searchLoading && searchResults.length === 0 && (
+                      <p className="text-center font-body text-[13px] text-gray-400 py-6">
+                        No results for "<span className="font-medium text-gray-600">{searchQuery}</span>"
+                      </p>
+                    )}
+                    {searchResults.map(product => (
+                      <button
+                        key={product.id}
+                        onClick={() => handleProductClick(product.slug)}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0 text-left group"
+                      >
+                        <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 overflow-hidden shrink-0 flex items-center justify-center">
+                          {product.image_url
+                            ? <img src={product.image_url} alt={product.name} className="w-full h-full object-cover mix-blend-multiply" />
+                            : <ShoppingBag size={14} className="text-gray-300" />
+                          }
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-body font-medium text-[13px] text-gray-900 truncate group-hover:text-[#0d5c3a] transition-colors">{product.name}</p>
+                          <p className="font-mono text-[10px] text-gray-400 uppercase tracking-wide mt-0.5">{product.category}</p>
+                        </div>
+                        <span className="font-mono font-bold text-[13px] text-[#0d5c3a] shrink-0">₹{product.price}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
     <header
+      ref={headerRef}
       className="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-white"
       style={{
         transform: showNavbar ? 'translateY(0)' : 'translateY(-100%)',
         boxShadow: showNavbar && lastScrollY > 10 ? '0 4px 20px rgba(0,0,0,0.08)' : 'none'
       }}
     >
-      {/* ── Search Overlay ── */}
-      {searchOpen && (
-        <div className="fixed inset-0 z-[200] flex flex-col bg-white">
-          {/* Search bar */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 shadow-sm">
-            <Search size={20} className="text-gray-400 shrink-0" />
-            <input
-              ref={searchInputRef}
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search products or conditions..."
-              className="flex-1 outline-none font-body text-[15px] text-gray-800 placeholder-gray-400"
-            />
-            {searchLoading
-              ? <Loader2 size={18} className="animate-spin text-gray-400 shrink-0" />
-              : <span className="w-[18px] shrink-0" />
-            }
-            <button onClick={closeSearch} className="p-1 hover:opacity-70 transition-opacity shrink-0">
-              <X size={20} color="#0d1f14" />
-            </button>
-          </div>
-
-          {/* Results */}
-          <div className="flex-1 overflow-y-auto p-4">
-            {!searchQuery.trim() && (
-              <p className="text-center font-body text-gray-400 py-12">
-                Start typing to search products...
-              </p>
-            )}
-            {searchQuery.trim() && !searchLoading && searchResults.length === 0 && (
-              <p className="text-center font-body text-gray-400 py-12">
-                No products found for "<span className="font-semibold">{searchQuery}</span>"
-              </p>
-            )}
-            <div className="grid grid-cols-1 gap-3 max-w-2xl mx-auto">
-              {searchResults.map(product => (
-                <button
-                  key={product.id}
-                  onClick={() => handleProductClick(product.slug)}
-                  className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#0d5c3a] hover:bg-emerald-50/40 transition-all text-left group"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden shrink-0 flex items-center justify-center">
-                    {product.image_url
-                      ? <img src={product.image_url} alt={product.name} className="w-full h-full object-cover mix-blend-multiply" />
-                      : <ShoppingBag size={18} className="text-gray-300" />
-                    }
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-body font-semibold text-[14px] text-gray-900 truncate group-hover:text-[#0d5c3a] transition-colors">{product.name}</p>
-                    <p className="font-mono text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">{product.category}</p>
-                  </div>
-                  <span className="font-mono font-bold text-[15px] text-[#0d5c3a] shrink-0">₹{product.price}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── Announcement bar ── */}
       <div className="bg-emerald-700 text-white text-center py-2 text-sm font-mono w-full nav-mobile-announcement relative z-50">
@@ -356,5 +379,6 @@ export default function Navbar() {
         )}
       </nav>
     </header>
+    </>
   );
 }

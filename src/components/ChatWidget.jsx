@@ -1,11 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import OpenAI from 'openai';
+import { supabase } from '../lib/supabase';
 import { Sparkles, X, Send, RefreshCw, Mic, MicOff, Loader2, Radio, PhoneOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// ─── System prompt for text chat ──────────────────────────────────────────────
-const SYSTEM_PROMPT = `You are Hakeem, the official AI assistant for Taseer Ayurved — an Ayurvedic medicine brand founded by Vaid Ali Shaikh, based in Ahmedabad, Gujarat with 20+ years of experience and 12,000+ patients treated.
+// ─── Language rules appended to both prompts ─────────────────────────────────
+const LANGUAGE_RULES = `
+CRITICAL LANGUAGE RULE:
+You MUST detect what language the user is speaking and ALWAYS reply in that SAME language.
+Supported languages: Hindi, English, Telugu, Gujarati, Tamil, Kannada, Marathi, Urdu, Bengali, Malayalam, Punjabi.
+NEVER reply in a different language than what the user spoke.
+If user speaks Telugu, reply ONLY in Telugu. If Gujarati, reply ONLY in Gujarati. This is mandatory.`;
+
+// ─── Base system prompt (products injected dynamically) ───────────────────────
+const BASE_PROMPT = `You are Hakeem, the official AI assistant for Taseer Ayurved — an Ayurvedic medicine brand founded by Vaid Ali Shaikh, based in Ahmedabad, Gujarat with 20+ years of experience and 12,000+ patients treated.
 
 PERSONALITY:
 - Sound like a warm, knowledgeable friend — NOT robotic, NOT formal
@@ -17,56 +26,7 @@ PERSONALITY:
 BUSINESS INFO:
 - Brand: Taseer Ayurved | Founder: Vaid Ali Shaikh
 - Address: 68/30, Nagpur Vora Ki Chawl, Opp. Jhulta Minara, Gomtipur, Ahmedabad - 380021
-- Phone: +91 7405410856 | Price: ₹3600 per product
-- All India courier, discreet packaging
-
-PRODUCTS & CONDITIONS:
-- Liver Failure Care → liver disease, jaundice
-- Fatty-L Liver Care → fatty liver
-- Million Liver Care & Detox → liver detox
-- Piliya Ki Dekhbhal → jaundice, yellow eyes
-- Kidney Failure Medicine → kidney failure, creatinine high
-- Kidney-Liver Cure → kidney and liver issues
-- Go Stone → kidney stones, urine infection
-- Gallbladder Stones Cleaner → gallbladder stones
-- Hernia Treatment → hernia, abdominal pain
-- Prostate Level → prostate, frequent urination
-- Pil-es Hemorrhoids Treatment → piles, bawaseer
-- Sabkuch Hazam → indigestion, gas, bloating
-- Stomach Cure → stomach problems
-- Worms Cure → intestinal worms
-- BP Control Majun → high blood pressure
-- Best for Cholesterol → high cholesterol
-- Heart Cure Special → heart weakness
-- All Pain for Arthritis → arthritis, joint pain
-- Body Pain Relief → body pain, muscle pain
-- Kamar Dard Nivarak Capsule → back pain
-- Sciatica Relief → sciatica, nerve pain
-- Uric Acid Care → uric acid, gout
-- Alopecia Oil → baldness, hair regrowth
-- Hair Fall Oil → hair fall, thinning
-- Ayurvedic Black Oil → grey hair, nourishment
-- Deep Sleep → insomnia, poor sleep
-- Chinta Mukti → anxiety, stress, tension
-- Depression Care → depression, low mood
-- Migraine Ka Ilaj → migraine, severe headache
-- Majun For Paralysis → paralysis, stroke recovery
-- Height Powder → short height, ages 10-25
-- Belly Fat Burner Detox → obesity, weight loss
-- Honey Moon Special → men's stamina, sexual wellness
-- Swarn Bhasma 500mg → immunity, premium wellness
-- Sinus Cure → sinusitis, blocked nose
-- Asthma Care → asthma, breathing difficulty
-- Lungs Cure → lung weakness, chronic cough
-- Vericose Veins Cure → varicose veins, leg swelling
-- Motiya Bina Operation → cataract, blurry vision
-- Drishti Sudhar Hetu Powder → weak eyesight
-- Uterine Fibroid → uterine fibroids
-- Leucorrhea Capsule → white discharge
-- Periods Free Capsule → irregular periods, PCOD
-- Daad Aur Khujli → skin rash, itching, eczema
-- Khoobsurat Aur Gore Rang → skin whitening, glow
-- Sharab Chudane Ki Aushadhi → alcohol de-addiction
+- Phone: +91 7405410856 | All India courier, discreet packaging
 
 CORRECT WEBSITE PAGES:
 - Home page → main landing page
@@ -116,8 +76,24 @@ ALWAYS end with: "Kuch aur madad chahiye? Main hamesha yahan hoon! 😊"
 - Always recommend consulting Vaid Ali Shaikh for serious conditions
 - Never make false medical claims`;
 
+// Builds the full system prompt with live product list from Supabase
+function buildSystemPrompt(products) {
+  const productList = products.length > 0
+    ? products.map(p => `- ${p.name} (${p.category}) → ₹${p.price} → ${p.benefit}`).join('\n')
+    : '(Products loading — advise user to check /shop for full catalog)';
+
+  return `${BASE_PROMPT}
+
+CURRENT PRODUCTS AVAILABLE:
+${productList}
+
+Always use these exact product names and current prices.
+If asked about a product not in this list, say it is not currently available.
+${LANGUAGE_RULES}`;
+}
+
 // ─── Condensed instructions for Realtime API voice session ───────────────────
-const REALTIME_INSTRUCTIONS = `You are Hakeem, a warm and friendly AI assistant for Taseer Ayurved. Speak naturally like a real person — NOT robotic. Use conversational Hindi or English based on what the user speaks. Be warm, caring, helpful. Sound like a knowledgeable friend, not a machine.
+const REALTIME_INSTRUCTIONS = `You are Hakeem, a warm and friendly AI assistant for Taseer Ayurved. Speak naturally like a real person — NOT robotic. Be warm, caring, helpful. Sound like a knowledgeable friend, not a machine.
 
 Business: Taseer Ayurved by Vaid Ali Shaikh | Phone: +91 7405410856 | All products: ₹3600
 
@@ -125,10 +101,11 @@ Website pages:
 - Formulations page → all products (go to /shop)
 - Book Consultation → gold button in navbar
 - Cart → cart icon top right
-- Checkout → after adding to cart
 - My Orders → /my-orders to track orders
 
-When helping users: guide them to Formulations page to browse, Book Consultation button to consult, Cart → Checkout to place order. Be warm, use "Bilkul!", "Zaroor!", "Acha!". Always end with "Kuch aur madad chahiye? 😊"`;
+Guide users to Formulations page to browse, Book Consultation to consult, Cart → Checkout to place order.
+Be warm, use "Bilkul!", "Zaroor!", "Acha!". Always end with "Kuch aur madad chahiye? 😊"
+${LANGUAGE_RULES}`;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const INITIAL_QUICK_REPLIES = [
@@ -169,6 +146,7 @@ export default function ChatWidget() {
   const [isTranscribing, setIsTranscribing] = useState(false);
 
   // Voice mode state
+  const [products, setProducts] = useState([]);
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   const [isVoiceConnecting, setIsVoiceConnecting] = useState(false);
   const [voiceStatus, setVoiceStatus] = useState('idle'); // 'idle' | 'listening' | 'thinking' | 'speaking'
@@ -199,6 +177,16 @@ export default function ChatWidget() {
     const t2 = setTimeout(() => setShowTooltip(false), 8000);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [hasVisited, isOpen]);
+
+  // Fetch products from Supabase each time chat opens
+  useEffect(() => {
+    if (!isOpen) return;
+    supabase
+      .from('products')
+      .select('name, category, price, benefit')
+      .order('name')
+      .then(({ data }) => { if (data) setProducts(data); });
+  }, [isOpen]);
 
   // Clean up voice session when chat closes
   useEffect(() => {
@@ -451,7 +439,7 @@ export default function ChatWidget() {
       const response = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'system', content: buildSystemPrompt(products) },
           ...messages,
           userMessage
         ],

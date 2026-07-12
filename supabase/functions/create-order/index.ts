@@ -14,11 +14,32 @@ serve(async (req) => {
       throw new Error('order_id and a non-empty items array are required')
     }
 
-    // Recompute the charge amount server-side — never trust a client-supplied total.
-    // Matches the shipping rule in src/pages/CheckoutPage.jsx: free above ₹500, else ₹50.
-    const subtotal = items.reduce((sum: number, item: { price: number; quantity: number }) => {
-      return sum + (Number(item.price) * Number(item.quantity))
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    )
+
+    // Look up authoritative prices from the products table — never trust a
+    // client-supplied price, only product id + quantity. A tampered request
+    // (e.g. calling this function directly with fabricated cheap prices)
+    // gets priced from the DB instead.
+    const productIds: string[] = [...new Set(items.map((item: { id: string }) => item.id))]
+    const { data: products, error: productsError } = await supabase
+      .from('products')
+      .select('id, price')
+      .in('id', productIds)
+
+    if (productsError || !products || products.length !== productIds.length) {
+      throw new Error('One or more products in the cart could not be verified')
+    }
+
+    const priceById = new Map(products.map((p: { id: string; price: number }) => [p.id, p.price]))
+    const subtotal = items.reduce((sum: number, item: { id: string; quantity: number }) => {
+      const price = priceById.get(item.id)
+      if (price === undefined) throw new Error(`Unknown product: ${item.id}`)
+      return sum + (Number(price) * Number(item.quantity))
     }, 0)
+    // Matches the shipping rule in src/pages/CheckoutPage.jsx: free above ₹500, else ₹50.
     const shipping = subtotal > 500 ? 0 : 50
     const total = subtotal + shipping
 
@@ -48,15 +69,12 @@ serve(async (req) => {
       throw new Error(orderData.error?.description || 'Failed to create Razorpay order')
     }
 
-    // Persist the Razorpay order id on the pending Supabase order row.
+    // Persist the Razorpay order id AND the server-verified total (correcting any
+    // client-supplied total from the initial insert) on the pending order row.
     // orders' RLS only allows admin UPDATEs, so this uses the service-role key.
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    )
     const { error: updateError } = await supabase
       .from('orders')
-      .update({ razorpay_order_id: orderData.id })
+      .update({ razorpay_order_id: orderData.id, total })
       .eq('id', order_id)
 
     if (updateError) {

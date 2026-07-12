@@ -1,2 +1,9 @@
-CREATE POLICY "Public insert orders" ON orders FOR INSERT WITH CHECK (true);
-CREATE POLICY "Public read orders" ON orders FOR SELECT USING (true);
+-- DO NOT RUN THIS FILE — kept only for history.
+-- These two policies made every customer's name/phone/email/address in
+-- `orders` readable by anyone with the public anon key, and let anyone
+-- insert a fake "paid" order. Both were dropped in production on
+-- 2026-07-12; see supabase/fix_orders_rls_security.sql for the fix and
+-- the reasoning.
+--
+-- CREATE POLICY "Public insert orders" ON orders FOR INSERT WITH CHECK (true);
+-- CREATE POLICY "Public read orders" ON orders FOR SELECT USING (true);

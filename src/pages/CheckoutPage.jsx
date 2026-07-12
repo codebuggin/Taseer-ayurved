@@ -59,10 +59,16 @@ export default function CheckoutPage() {
 
     const fullAddress = formData.address2 ? `${formData.address1}, ${formData.address2}` : formData.address1;
 
+    // Generated client-side rather than read back after insert: orders' RLS only lets a
+    // logged-in customer (or admin) SELECT their own rows, which a guest checkout
+    // (user_id: null) can never satisfy — auth.uid() = NULL is never true in SQL.
+    const orderId = crypto.randomUUID();
+
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('orders')
         .insert({
+          id: orderId,
           user_id: user?.id || null,
           items: cartItems,
           total: finalTotal,
@@ -76,9 +82,7 @@ export default function CheckoutPage() {
           payment_method: paymentMethod,
           payment_status: paymentMethod === 'cod' ? 'cod' : 'created',
           payment_id: paymentMethod === 'cod' ? 'COD' : null
-        })
-        .select()
-        .single();
+        });
 
       if (error) {
         console.error('Order Insert Error details:', error);
@@ -87,10 +91,16 @@ export default function CheckoutPage() {
         return;
       }
 
+      const order = {
+        id: orderId,
+        payment_method: paymentMethod,
+        payment_id: paymentMethod === 'cod' ? 'COD' : null
+      };
+
       if (paymentMethod === 'cod') {
-        await finalizeOrder(data, fullAddress);
+        await finalizeOrder(order, fullAddress);
       } else {
-        await startRazorpayPayment(data, fullAddress);
+        await startRazorpayPayment(order, fullAddress);
       }
     } catch (err) {
       console.error('Unexpected error during order placement:', err);
@@ -132,7 +142,7 @@ export default function CheckoutPage() {
       body: {
         order_id: order.id,
         receipt: order.id,
-        items: cartItems.map(item => ({ price: item.price, quantity: item.quantity }))
+        items: cartItems.map(item => ({ id: item.id, quantity: item.quantity }))
       }
     });
 

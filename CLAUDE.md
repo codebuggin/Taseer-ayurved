@@ -11,7 +11,7 @@ npm run lint      # ESLint check
 npm run preview   # Preview production build locally
 ```
 
-No test runner is configured (Playwright is installed but not yet wired up).
+No test runner is configured. Playwright is installed and used ad hoc by `mobile-qa.mjs` (a standalone script that screenshots pages at iPhone 12 viewport into `mobile-qa-screenshots/`), not as a wired-up test suite — run it directly with `node mobile-qa.mjs`.
 
 ## Architecture Overview
 
@@ -43,12 +43,15 @@ Key routes:
 /admin         → AdminDashboard (full CRUD sub-routes beneath)
 ```
 
-### Supabase Tables
+### Supabase
 
-`products`, `cart_items`, `orders`, `consultations`, `testimonials`, `ads`
+Tables: `products`, `cart_items`, `orders`, `consultations`, `testimonials`, `ads`
 
 - Each component fetches directly from Supabase — there is no API layer or data-fetching library
 - Environment variables required: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_OPENAI_API_KEY`
+- `supabase/functions/` holds two Deno Edge Functions: `create-order` (server-side Razorpay order creation — currently a placeholder, not called by the frontend since payment is COD-only) and `send-invoice` (builds an HTML invoice from an order and is invoked after checkout)
+- SQL setup scripts live at the repo root (`update_orders.sql`, `setup_consultations.sql`, `insert_products.sql`, etc.) and in `supabase/` (`setup_orders.sql`, `setup_admin_tables.sql`, `setup_ads.sql`, `create_testimonials.sql`) — there is no migration tool, these are run manually against the Supabase project
+- `orders` RLS (`supabase/setup_orders.sql`): anyone can INSERT; a user can SELECT their own orders; only `admin@taseer.com` (checked via `auth.jwt() ->> 'email'`) can UPDATE/DELETE. Any Edge Function that needs to update an order (e.g. after payment) must use the service-role key to bypass RLS, not the anon key
 
 ### Animation Patterns
 
@@ -70,12 +73,12 @@ The `GEMINI.md` file is a design specification prompt (not code) describing the 
 
 ### Product Categories
 
-`ShopPage` has 16 hardcoded Ayurvedic health categories. Sensitive categories (`mens-health`, `womens-care`) are excluded from the "All" filter view — maintain this behavior when adding categories.
+`ShopPage` has 16 hardcoded Ayurvedic health categories (`src/pages/ShopPage.jsx`). Five sensitive slugs — `mens-health`, `womens-care`, `womens-health`, `gynecology`, `womens-special` — are listed in `sensitiveCategories` and excluded from the "All" filter view; maintain this behavior when adding categories.
 
 ### Payment
 
-Razorpay is installed but inactive. Current orders use `payment_id: 'COD'` (Cash on Delivery only).
+Razorpay is installed (client SDK + a placeholder `create-order` Edge Function) but inactive end-to-end. Current orders use `payment_id: 'COD'` (Cash on Delivery only).
 
 ### AI Chatbot
 
-`src/components/ChatWidget.jsx` calls the OpenAI API directly from the browser (`dangerouslyAllowBrowser: true`). The system prompt defines the Hakeem persona with product knowledge.
+`src/components/ChatWidget.jsx` calls the OpenAI API directly from the browser (`dangerouslyAllowBrowser: true`). It has two modes: text chat via `gpt-3.5-turbo` with a system prompt that injects the live product list from Supabase, and a voice mode via the `gpt-4o-realtime-preview` Realtime API with `whisper-1` transcription. Both share the "Hakeem" persona (an Ayurvedic assistant for the brand).

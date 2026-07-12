@@ -16,7 +16,7 @@ serve(async (req) => {
         <h2 style="color: #1a4731;">Invoice / Order Confirmation</h2>
         <p><strong>Order ID:</strong> ${order.id.slice(0,8).toUpperCase()}</p>
         <p><strong>Date:</strong> ${new Date(order.created_at).toLocaleDateString('en-IN')}</p>
-        <p><strong>Payment:</strong> Cash on Delivery (COD)</p>
+        <p><strong>Payment:</strong> ${order.payment_method === 'razorpay' ? `Online Payment (Razorpay) — ${order.payment_id || 'paid'}` : 'Cash on Delivery (COD)'}</p>
       </div>
 
       <div style="padding: 20px;">

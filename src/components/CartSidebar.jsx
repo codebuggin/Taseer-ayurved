@@ -75,10 +75,10 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
                         
                         {/* Qty Controls */}
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center gap-3 border border-theme rounded-lg px-2 py-1">
-                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="text-theme-text-muted hover:text-theme-bg-deep transition-colors"><Minus size={14} /></button>
+                          <div className="flex items-center gap-1 border border-theme rounded-lg px-1 py-1">
+                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="text-theme-text-muted hover:text-theme-bg-deep transition-colors p-2 -m-0.5"><Minus size={14} /></button>
                             <span className="font-mono text-[12px]">{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="text-theme-text-muted hover:text-theme-bg-deep transition-colors"><Plus size={14} /></button>
+                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="text-theme-text-muted hover:text-theme-bg-deep transition-colors p-2 -m-0.5"><Plus size={14} /></button>
                           </div>
                           
                           <button onClick={() => removeFromCart(item.id)} className="text-[12px] font-body text-theme-text-muted underline underline-offset-2 hover:text-red-500 transition-colors">

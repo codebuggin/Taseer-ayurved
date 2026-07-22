@@ -11,7 +11,6 @@ export default function CheckoutPage() {
   const { user } = useAuth();
   
   const [placing, setPlacing] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('cod');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -79,9 +78,9 @@ export default function CheckoutPage() {
           address: fullAddress,
           city: formData.city,
           pincode: formData.pincode,
-          payment_method: paymentMethod,
-          payment_status: paymentMethod === 'cod' ? 'cod' : 'created',
-          payment_id: paymentMethod === 'cod' ? 'COD' : null
+          payment_method: 'razorpay',
+          payment_status: 'created',
+          payment_id: null
         });
 
       if (error) {
@@ -91,17 +90,8 @@ export default function CheckoutPage() {
         return;
       }
 
-      const order = {
-        id: orderId,
-        payment_method: paymentMethod,
-        payment_id: paymentMethod === 'cod' ? 'COD' : null
-      };
-
-      if (paymentMethod === 'cod') {
-        await finalizeOrder(order, fullAddress);
-      } else {
-        await startRazorpayPayment(order, fullAddress);
-      }
+      const order = { id: orderId, payment_method: 'razorpay', payment_id: null };
+      await startRazorpayPayment(order, fullAddress);
     } catch (err) {
       console.error('Unexpected error during order placement:', err);
       setPlacing(false);
@@ -149,7 +139,7 @@ export default function CheckoutPage() {
     if (rzpError || !rzpOrder?.razorpay_order_id) {
       console.error('Razorpay order creation failed:', rzpError || rzpOrder);
       setPlacing(false);
-      alert('Could not start online payment. Please try again or choose Cash on Delivery.');
+      alert('Could not start online payment. Please try again in a moment.');
       return;
     }
 
@@ -382,32 +372,22 @@ export default function CheckoutPage() {
               {/* PAYMENT SECTION */}
               <div className="mb-8">
                 <h3 className="font-body font-semibold text-[16px] mb-3">Payment Method</h3>
-                
-                <div className="space-y-3">
-                  <label className={`flex items-start gap-3 p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'cod' ? 'border-[#0d5c3a] bg-emerald-50' : 'border-gray-200 bg-white'}`}>
-                    <input type="radio" name="payment" value="cod" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} className="mt-1" />
-                    <div>
-                      <h4 className="font-body font-semibold text-[#0d5c3a]">💵 Cash on Delivery (COD)</h4>
-                      <p className="text-xs text-emerald-700/80 mt-1 font-medium">Pay when your order arrives</p>
-                    </div>
-                  </label>
 
-                  <label className={`flex items-start gap-3 p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'razorpay' ? 'border-[#0d5c3a] bg-emerald-50' : 'border-gray-200 bg-white'}`}>
-                    <input type="radio" name="payment" value="razorpay" checked={paymentMethod === 'razorpay'} onChange={() => setPaymentMethod('razorpay')} className="mt-1" />
-                    <div>
-                      <h4 className="font-body font-semibold text-[#0d5c3a]">💳 Online Payment</h4>
-                      <p className="text-xs text-emerald-700/80 mt-1 font-medium">Card / UPI / Netbanking via Razorpay</p>
-                    </div>
-                  </label>
+                <div className="flex items-start gap-3 p-4 border-2 border-[#0d5c3a] rounded-xl bg-emerald-50">
+                  <span className="mt-1">💳</span>
+                  <div>
+                    <h4 className="font-body font-semibold text-[#0d5c3a]">Online Payment</h4>
+                    <p className="text-xs text-emerald-700/80 mt-1 font-medium">Card / UPI / Netbanking via Razorpay</p>
+                  </div>
                 </div>
               </div>
 
-              <button 
-                disabled={placing} 
-                type="submit" 
+              <button
+                disabled={placing}
+                type="submit"
                 className="w-full bg-[#e8a500] text-[#0d1f14] rounded-xl font-body font-bold text-[16px] py-4 transition-colors hover:bg-[#c9900a] disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
               >
-                {placing ? 'Processing...' : paymentMethod === 'razorpay' ? `Pay ₹${finalTotal} →` : 'Place Order →'}
+                {placing ? 'Processing...' : `Pay ₹${finalTotal} →`}
               </button>
 
             </div>

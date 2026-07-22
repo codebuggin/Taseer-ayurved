@@ -183,10 +183,10 @@ export default function ProductDetail() {
             
             {/* Action Area */}
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
-              <div className="flex items-center justify-between border border-theme-bg-deep rounded-full px-4 w-full sm:w-[120px] h-[52px]">
-                <button onClick={() => setQty(Math.max(1, qty - 1))} className="text-theme-bg-deep hover:text-theme-accent transition-colors"><Minus size={16} /></button>
+              <div className="flex items-center justify-between border border-theme-bg-deep rounded-full px-2 w-full sm:w-[120px] h-[52px]">
+                <button onClick={() => setQty(Math.max(1, qty - 1))} className="text-theme-bg-deep hover:text-theme-accent transition-colors p-3 -m-1"><Minus size={16} /></button>
                 <span className="font-mono text-[14px] text-theme-text-primary font-bold">{qty}</span>
-                <button onClick={() => setQty(qty + 1)} className="text-theme-bg-deep hover:text-theme-accent transition-colors"><Plus size={16} /></button>
+                <button onClick={() => setQty(qty + 1)} className="text-theme-bg-deep hover:text-theme-accent transition-colors p-3 -m-1"><Plus size={16} /></button>
               </div>
               
               <button onClick={handleAddToCart} className="flex-1 h-[52px] bg-theme-bg-deep text-white rounded-full font-body font-medium text-[15px] hover:shadow-lg hover:bg-theme-bg-deep/90 transition-all magnetic-btn disabled:opacity-50" disabled={product?.id === 'fallback'}>

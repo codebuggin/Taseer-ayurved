@@ -342,8 +342,8 @@ export default function Navbar() {
               Book Consultation
             </Link>
 
-            {/* Hamburger */}
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden text-theme-text-primary p-1 ml-1">
+            {/* Hamburger — hidden once the desktop nav links appear (md:flex above), not just at lg */}
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-theme-text-primary p-1 ml-1">
               <Menu size={22} />
             </button>
           </div>
@@ -352,7 +352,7 @@ export default function Navbar() {
 
         {/* ── Mobile Menu ── */}
         {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-theme shadow-lg flex flex-col p-5 gap-3 z-40">
+          <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-theme shadow-lg flex flex-col p-5 gap-3 z-40">
             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="font-body text-[15px] font-medium text-theme-text-primary border-b border-gray-100 pb-3">Home</Link>
             <Link to="/shop" onClick={() => setMobileMenuOpen(false)} className="font-body text-[15px] font-medium text-theme-text-primary border-b border-gray-100 pb-3">Formulations</Link>
             <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="font-body text-[15px] font-medium text-theme-text-primary border-b border-gray-100 pb-3">About</Link>

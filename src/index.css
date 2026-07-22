@@ -51,8 +51,15 @@ body {
   main, #root > div > div {
     margin-top: 0;
   }
-  
+
   nav + *, header + * {
     margin-top: 0 !important;
+  }
+
+  /* iOS Safari force-zooms the page when a form field's font-size is under 16px —
+     most inputs/selects in this app use 14-15px. Fixed size here so tapping a
+     field during checkout, login, or consultation forms doesn't jolt-zoom the page. */
+  input, select, textarea {
+    font-size: 16px !important;
   }
 }

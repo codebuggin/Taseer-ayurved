@@ -5,23 +5,36 @@ import { CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { supabase } from '../lib/supabase';
 
+// Slugs must match the `category` column values actually stored in the products
+// table (verified 2026-07-12) — a mismatched slug here means that pill always
+// shows "No products found" even when matching products exist.
 const categories = [
   { name: "All", slug: "all" },
-  { name: "Thyroid", slug: "thyroid" },
+  { name: "Digestive Health", slug: "digestive-health" },
   { name: "Piles & Fissure", slug: "piles" },
-  { name: "Gallbladder", slug: "gallbladder" },
+  { name: "Gallbladder Care", slug: "gallbladder-care" },
+  { name: "Liver Care", slug: "liver-care" },
+  { name: "Kidney Care", slug: "kidney-care" },
+  { name: "Heart Health", slug: "heart-health" },
   { name: "Knee & Body Pain", slug: "bone-joint" },
-  { name: "Hair Loss", slug: "hair-loss" },
-  { name: "Weight Loss", slug: "weight-loss" },
-  { name: "Cholesterol & BP", slug: "thyroid" },
-  { name: "Men's Health", slug: "mens-health" },
-  { name: "Women's Care", slug: "womens-care" },
-  { name: "Women's Health", slug: "womens-health" },
-  { name: "Gynecology", slug: "gynecology" },
-  { name: "Women's Special", slug: "womens-special" },
+  { name: "Pain Relief", slug: "pain-relief" },
+  { name: "Hair Care", slug: "hair-care" },
   { name: "Skin & Glow", slug: "skin-care" },
-  { name: "Cervical", slug: "cervical" },
-  { name: "Spondylitis", slug: "spondylitis" }
+  { name: "Weight Management", slug: "weight-management" },
+  { name: "General Wellness", slug: "general-wellness" },
+  { name: "Vitality", slug: "vitality" },
+  { name: "Nutrition", slug: "nutrition" },
+  { name: "Growth", slug: "growth" },
+  { name: "Sleep & Mental Health", slug: "sleep-mental-health" },
+  { name: "Neurological", slug: "neurological" },
+  { name: "Neurological Conditions", slug: "neurological-conditions" },
+  { name: "Respiratory", slug: "respiratory" },
+  { name: "Respiratory Health", slug: "respiratory-health" },
+  { name: "Lung Care", slug: "lung" },
+  { name: "Blood Circulation", slug: "blood-circulation" },
+  { name: "Eye Care", slug: "eye-care" },
+  { name: "Men's Health", slug: "mens-health" },
+  { name: "Women's Care", slug: "womens-care" }
 ];
 
 const sensitiveCategories = [

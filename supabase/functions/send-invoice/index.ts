@@ -43,12 +43,6 @@ serve(async (req) => {
               <td style="padding: 10px; text-align: right;">₹${item.price * item.qty}</td>
             </tr>
           `).join('')}
-          <tr style="background: #f9f5f0;">
-            <td colspan="3" style="padding: 10px; text-align: right;">
-              <strong>Shipping:</strong>
-            </td>
-            <td style="padding: 10px; text-align: right;">FREE</td>
-          </tr>
           <tr style="background: #1a4731; color: white;">
             <td colspan="3" style="padding: 10px; text-align: right;">
               <strong>TOTAL:</strong>

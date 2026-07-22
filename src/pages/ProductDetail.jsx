@@ -218,7 +218,7 @@ export default function ProductDetail() {
                 <div className="w-10 h-10 rounded-full bg-[#f0f7f3] text-theme-bg-deep flex items-center justify-center">
                   <Truck size={18} />
                 </div>
-                <span className="font-mono text-[11px] text-theme-text-primary uppercase tracking-tight">Free Shipping ₹499+</span>
+                <span className="font-mono text-[11px] text-theme-text-primary uppercase tracking-tight">Free Shipping</span>
               </div>
             </div>
             

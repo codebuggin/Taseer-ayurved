@@ -34,14 +34,11 @@ serve(async (req) => {
     }
 
     const priceById = new Map(products.map((p: { id: string; price: number }) => [p.id, p.price]))
-    const subtotal = items.reduce((sum: number, item: { id: string; quantity: number }) => {
+    const total = items.reduce((sum: number, item: { id: string; quantity: number }) => {
       const price = priceById.get(item.id)
       if (price === undefined) throw new Error(`Unknown product: ${item.id}`)
       return sum + (Number(price) * Number(item.quantity))
     }, 0)
-    // Matches the shipping rule in src/pages/CheckoutPage.jsx: free above ₹500, else ₹50.
-    const shipping = subtotal > 500 ? 0 : 50
-    const total = subtotal + shipping
 
     const keyId = Deno.env.get('RAZORPAY_KEY_ID')
     const keySecret = Deno.env.get('RAZORPAY_KEY_SECRET')

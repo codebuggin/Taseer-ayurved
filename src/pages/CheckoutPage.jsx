@@ -24,8 +24,7 @@ export default function CheckoutPage() {
   });
 
   const cartTotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const shippingCost = cartTotal > 500 ? 0 : 50;
-  const finalTotal = cartTotal + shippingCost;
+  const finalTotal = cartTotal;
 
   const states = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", 
@@ -357,10 +356,6 @@ export default function CheckoutPage() {
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
                   <span className="font-mono">₹{cartTotal}</span>
-                </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="font-mono font-medium text-emerald-700">{shippingCost === 0 ? 'FREE' : '₹50'}</span>
                 </div>
               </div>
 

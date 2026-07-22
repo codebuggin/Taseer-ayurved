@@ -111,14 +111,11 @@ export default function CartSidebar({ isOpen, setIsOpen }) {
             {/* Footer Summary */}
             {cartItems.length > 0 && (
               <div className="border-t border-theme p-6 bg-theme-bg-secondary">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-6">
                   <span className="font-body text-[15px] text-theme-text-muted">Subtotal</span>
                   <span className="font-body font-bold text-[18px] text-theme-text-primary">₹{subtotal}</span>
                 </div>
-                <p className="font-body text-[12px] text-theme-text-muted mb-6">
-                  Taxes and shipping calculated at checkout.
-                </p>
-                <button 
+                <button
                   onClick={() => {
                     setIsOpen(false);
                     navigate('/checkout');

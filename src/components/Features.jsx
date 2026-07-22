@@ -21,16 +21,10 @@ export default function Features() {
             <p className="text-sm text-gray-500 mt-1">Sugar control & pancreas healing</p>
           </Link>
 
-          <Link to="/shop?category=kidney-stone" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=kidney-care" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">💧</div>
             <h3 className="font-semibold text-gray-900">Kidney Stone</h3>
             <p className="text-sm text-gray-500 mt-1">Dissolve stones naturally</p>
-          </Link>
-
-          <Link to="/shop?category=thyroid" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
-            <div className="text-3xl mb-3">⚖️</div>
-            <h3 className="font-semibold text-gray-900">Thyroid</h3>
-            <p className="text-sm text-gray-500 mt-1">TSH balance in 90 days</p>
           </Link>
 
           <Link to="/shop?category=piles" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
@@ -39,49 +33,49 @@ export default function Features() {
             <p className="text-sm text-gray-500 mt-1">Relief without surgery</p>
           </Link>
 
-          <Link to="/shop?category=gallbladder" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=gallbladder-care" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">🫀</div>
             <h3 className="font-semibold text-gray-900">Gallbladder Stone</h3>
             <p className="text-sm text-gray-500 mt-1">Bile duct cleanse</p>
           </Link>
 
-          <Link to="/shop?category=cholesterol-bp" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=heart-health" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">❤️</div>
             <h3 className="font-semibold text-gray-900">Cholesterol & BP</h3>
             <p className="text-sm text-gray-500 mt-1">Heart & pressure care</p>
           </Link>
 
-          <Link to="/shop?category=knee-pain" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=bone-joint" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">🦴</div>
             <h3 className="font-semibold text-gray-900">Knee & Body Pain</h3>
             <p className="text-sm text-gray-500 mt-1">Joint & spine relief</p>
           </Link>
 
-          <Link to="/shop?category=fatty-liver" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=liver-care" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">🍃</div>
             <h3 className="font-semibold text-gray-900">Fatty Liver</h3>
             <p className="text-sm text-gray-500 mt-1">Liver detox & repair</p>
           </Link>
 
-          <Link to="/shop?category=hair-loss" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=hair-care" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">💆</div>
             <h3 className="font-semibold text-gray-900">Hair Loss</h3>
             <p className="text-sm text-gray-500 mt-1">Root strengthening formula</p>
           </Link>
 
-          <Link to="/shop?category=weight-loss" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=weight-management" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">⚡</div>
             <h3 className="font-semibold text-gray-900">Weight Loss</h3>
             <p className="text-sm text-gray-500 mt-1">Metabolism reset naturally</p>
           </Link>
 
-          <Link to="/shop?category=prostate" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=mens-health" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">💪</div>
             <h3 className="font-semibold text-gray-900">Prostate Care</h3>
             <p className="text-sm text-gray-500 mt-1">Men's urinary & gland health</p>
           </Link>
 
-          <Link to="/shop?category=intimate-wellness" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
+          <Link to="/shop?category=womens-care" className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-600 hover:-translate-y-1 transition-all duration-300 cursor-pointer block">
             <div className="text-3xl mb-3">🌸</div>
             <h3 className="font-semibold text-gray-900">Male-Female Disease</h3>
             <p className="text-sm text-gray-500 mt-1">Intimate wellness care</p>

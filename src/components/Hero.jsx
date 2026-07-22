@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const sloganMap = {
   'thyroid': 'Thyroid Jadh Se Khatam! ✓',
   'piles': 'Bawaseer Jadh Se Khatam! ✓',
-  'gallbladder': 'Gallbladder Stone Jadh Se Khatam! ✓',
+  'gallbladder-care': 'Gallbladder Stone Jadh Se Khatam! ✓',
   'cervical': 'Cervical Dard Jadh Se Khatam! ✓',
   'spondylitis': 'Spondylitis Jadh Se Khatam! ✓',
   'mens-health': 'Mardana Kamzori Jadh Se Khatam! ✓',

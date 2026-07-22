@@ -2,32 +2,35 @@ import { Plus, Edit2, Trash2, X, Star, Upload } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 
+// Must stay in sync with the `categories` list in src/pages/ShopPage.jsx (minus "All") —
+// picking a category here that has no matching filter pill there makes the product
+// invisible under any category filter, even though it exists and is correctly tagged.
 const CATEGORY_OPTIONS = [
-  { value: 'thyroid', label: 'Thyroid' },
-  { value: 'piles', label: 'Piles' },
-  { value: 'gallbladder', label: 'Gallbladder' },
-  { value: 'cervical', label: 'Cervical' },
-  { value: 'spondylitis', label: 'Spondylitis' },
-  { value: 'mens-health', label: 'Mens Health' },
-  { value: 'womens-care', label: 'Womens Care' },
-  { value: 'womens-special', label: 'Womens Special' },
-  { value: 'gynecology', label: 'Gynecology' },
-  { value: 'bone-joint', label: 'Bone Joint' },
-  { value: 'skin-care', label: 'Skin Care' },
+  { value: 'digestive-health', label: 'Digestive Health' },
+  { value: 'piles', label: 'Piles & Fissure' },
+  { value: 'gallbladder-care', label: 'Gallbladder Care' },
   { value: 'liver-care', label: 'Liver Care' },
   { value: 'kidney-care', label: 'Kidney Care' },
   { value: 'heart-health', label: 'Heart Health' },
+  { value: 'bone-joint', label: 'Knee & Body Pain' },
   { value: 'pain-relief', label: 'Pain Relief' },
-  { value: 'digestive-health', label: 'Digestive Health' },
   { value: 'hair-care', label: 'Hair Care' },
-  { value: 'sleep-mental-health', label: 'Sleep Mental Health' },
+  { value: 'skin-care', label: 'Skin & Glow' },
   { value: 'weight-management', label: 'Weight Management' },
-  { value: 'neurological', label: 'Neurological' },
-  { value: 'growth', label: 'Growth' },
-  { value: 'nutrition', label: 'Nutrition' },
+  { value: 'general-wellness', label: 'General Wellness' },
   { value: 'vitality', label: 'Vitality' },
-  { value: 'premium', label: 'Premium' },
-  { value: 'general-wellness', label: 'General Wellness' }
+  { value: 'nutrition', label: 'Nutrition' },
+  { value: 'growth', label: 'Growth' },
+  { value: 'sleep-mental-health', label: 'Sleep & Mental Health' },
+  { value: 'neurological', label: 'Neurological' },
+  { value: 'neurological-conditions', label: 'Neurological Conditions' },
+  { value: 'respiratory', label: 'Respiratory' },
+  { value: 'respiratory-health', label: 'Respiratory Health' },
+  { value: 'lung', label: 'Lung Care' },
+  { value: 'blood-circulation', label: 'Blood Circulation' },
+  { value: 'eye-care', label: 'Eye Care' },
+  { value: 'mens-health', label: "Men's Health" },
+  { value: 'womens-care', label: "Women's Care" }
 ];
 
 export default function AdminProducts() {
